@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2 id="slider"></h2>
+    <img src="" id="image" alt="" />
+    <button id="back">Back</button>
+    <button id="next">Next</button>
+    <script>
+      let array = ["javascript", "html", "css"];
+      let image = [
+        "https://hover.blog/wp-content/uploads/2015/08/dot-online-1280x720.png",
+        "https://hover.blog/wp-content/uploads/2015/08/dot-online-1280x720.png",
+        "https://hover.blog/wp-content/uploads/2015/08/dot-online-1280x720.png",
+      ];
+      let slider = document.getElementById("slider");
+      let img = document.getElementById("image");
+
+      let back = document.getElementById("back");
+      let next = document.getElementById("next"); 
+      let count = 0;
+
+      next.addEventListener("click", () => {
+        if (count == array.length - 1) {
+          count = 0;
+        } else {
+          count++;
+        }
+        showData();
+      });
+
+      back.addEventListener("click", () => {
+        if (count == 0) {
+          count = array.length - 1;
+        } else {
+          count--;
+        }
+        showData();
+      });
+
+      function showData() {
+        slider.innerText = array[count];
+
+        slider.style.color = "red";
+        img.src = image[count];
+      }
+
+      showData();
+    </script>
+  </body>
+</html>

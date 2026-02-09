@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input id="text" type="text" />
+    <button id="add">add</button>
+    <div id="container"></div>
+    <script>
+      let todolist = JSON.parse(localStorage.getItem("tododata")) || [];
+      let text = document.getElementById("text");
+      let add = document.getElementById("add");
+      let container = document.getElementById("container");
+
+      showData();
+
+      add.addEventListener("click", () => {
+        if (text.value == "") {
+          console.log("Please...");
+          return;
+        }
+        todolist.push(text.value);
+        localStorage.setItem("tododata", JSON.stringify(todolist));
+        console.log(todolist);
+        text.value = "";
+        showData();
+      });
+
+      function showData() {
+        container.innerHTML = "";
+        todolist.forEach((element, index) => {
+          let card = document.createElement("div");
+          let paragraph = document.createElement("p");
+          paragraph.innerText = element;
+         
+         
+          container.append(card);
+          card.append(paragraph);
+        });
+      }
+    </script>
+  </body>
+</html>
