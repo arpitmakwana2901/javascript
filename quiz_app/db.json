@@ -1,0 +1,37 @@
+{
+ "all-mcq": [
+  {
+   "id": 1,
+   "question": "What is javascript ?",
+   "options": [
+    "A Database",
+    "A progamming language",
+    "A web-browser",
+    "An Operating Syatem"
+   ],
+   "answer":"A progamming language"
+  },
+  {
+   "id":2,
+   "question":"Which company developed JavaScript",
+   "options":[
+    "Microsoft",
+    "facebook",
+    "Google",
+    "Netscape"
+   ],
+   "answer":"Netscape"
+  },
+  {
+   "id":3,
+   "question":"what is HTML ?",
+   "options":[
+    "Hyper Text Markup Language",
+    "Hyper Tranfer Markup Language",
+    "Hyper Makup language",
+    "Hyper Tool Markup Language"
+   ],
+   "answer":"Hyper Text Markup Language"
+  }
+ ]
+}

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <div><h3 id="question-title"></h3></div>
+      <div>
+        <div>
+          <input type="radio" name="question" value="0" /><span
+            id="option-1"
+          ></span>
+        </div>
+
+        <div>
+          <input type="radio" name="question" value="1" />
+          <span id="option-2"></span>
+        </div>
+
+        <div>
+          <input type="radio" name="question" value="2" />
+          <span id="option-3"></span>
+        </div>
+
+        <div>
+          <input type="radio" name="question" value="3" />
+          <span id="option-4"></span>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <button id="pre-btn">Pre</button> <button id="nxt-btn">Next</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let question_title = document.getElementById("question-title");
+      let option1 = document.getElementById("option-1");
+      let option2 = document.getElementById("option-2");
+      let option3 = document.getElementById("option-3");
+      let option4 = document.getElementById("option-4");
+      let preBtn = document.getElementById("pre-btn");
+      let nextBtn = document.getElementById("nxt-btn");
+      let input = document.querySelectorAll('input[name="question"]');
+      let array = [];
+      let index = 0;
+      let score = 0;
+      let userAnswer = [];
+
+      fetch("http://localhost:3000/all-mcq")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          array = data;
+          showData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      function showData() {
+        question_title.textContent = array[index].question;
+        option1.textContent = array[index].options[0];
+        option2.textContent = array[index].options[1];
+        option3.textContent = array[index].options[2];
+        option4.textContent = array[index].options[3];
+
+        for (let i = 0; i < input.length; i++) {
+          input[i].checked = false;
+        }
+
+        if (userAnswer[index] != undefined) {
+          input[userAnswer[index]].checked = true;
+        }
+      }
+
+      function getAnswer() {
+        for (let i = 0; i < input.length; i++) {
+          if (input[i].checked) {
+            return i;
+          }
+        }
+      }
+
+      nextBtn.addEventListener("click", function () {
+        let ans = getAnswer();
+
+        userAnswer[index] = ans;
+
+        if (index < array.length - 1) {
+          index++;
+          showData();
+        } else {
+          calcAns();
+        }
+      });
+
+      preBtn.addEventListener("click", function () {
+        if (index > 0) {
+          index--;
+          showData();
+        }
+      });
+
+      function calcAns() {
+        score = 0;
+
+        for (let i = 0; i < array.length; i++) {
+          if (array[i].options[userAnswer[i]] == array[i].answer) {
+            score++;
+          }
+          console.log(score);
+        }
+        alert("Quiz finished. Score: " + score);
+      }
+    </script>
+  </body>
+</html>
