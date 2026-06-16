@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todolist</title>
+  </head>
+  <body>
+    <input type="text" id="inputText" />
+    <button id="addBtn">Add</button>
+    <div id="container"></div>
+
+    <script>
+      let container = document.getElementById("container");
+      let inputText = document.getElementById("inputText");
+      let addBtn = document.getElementById("addBtn");
+      let editIndex = -1;
+      let array = JSON.parse(localStorage.getItem("todoData")) || [];
+      addBtn.addEventListener("click", () => {
+        if (editIndex === -1) {
+          array.push(inputText.value);
+        } else {
+          array[editIndex] = inputText.value;
+          editIndex = -1;
+          addBtn.innerText = "Add";
+        }
+        localStorage.setItem("todoData", JSON.stringify(array));
+
+        showData();
+      });
+
+      function showData() {
+        container.innerHTML = "";
+
+        array.forEach((ele, index) => {
+          let card = document.createElement("div");
+
+          let paragraph = document.createElement("p");
+          paragraph.innerText = ele;
+
+          let deleteBtn = document.createElement("button");
+          deleteBtn.innerText = "Delete";
+
+          deleteBtn.addEventListener("click", () => {
+            array = array.filter((e, i) => i != index);
+            localStorage.setItem("todoData", JSON.stringify(array));
+            showData();
+          });
+
+          let editBtn = document.createElement("button");
+          editBtn.innerText = "Edit";
+
+          card.append(paragraph, deleteBtn, editBtn);
+          container.append(card);
+
+          editBtn.addEventListener("click", () => {
+            inputText.value = ele;
+            editIndex = index;
+            addBtn.innerText = "Update";
+          });
+        });
+        inputText.value = "";
+      }
+      showData();
+    </script>
+  </body>
+</html>

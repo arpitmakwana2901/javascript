@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <div>
+      <h3 id="slider"></h3>
+      <img id="image" alt="" />
+    </div>
+
+    <div>
+      <button id="pre">Pre</button>
+      <button id="next">Next</button>
+    </div>
+  </head>
+  <body>
+    <script>
+      let slider = document.getElementById("slider");
+      let img = document.getElementById("image");
+      let next = document.getElementById("next");
+      let pre = document.getElementById("pre");
+      let count = 0;
+
+      let array = ["html", "css", "js"];
+      let image = [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU3HFVnkYFJ_OIogo__Qv58bmhwRqZJcQhOA&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXert6ekqTL1J7LVWNAhs65_GeostayFqh6A&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgrTLYPUyH-UieHupbuKkh1FKZ_rq1dX0gIw&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsel-0uvujE_QSaKBxJ8Gw8Yg7I0rYAdjzYg&s",
+      ];
+
+      next.addEventListener("click", () => {
+        if (count  = array.length - 1) {
+          count++;
+        }
+      });
+    </script>
+  </body>
+</html>

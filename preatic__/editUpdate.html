@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit and Update</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="inputText" />
+      <input type="file" id="imageInput" />
+      <button id="addBtn">Product Add</button>
+      <div id="container"></div>
+    </div>
+
+    <script>
+      let container = document.getElementById("container");
+      let addBtn = document.getElementById("addBtn");
+      let inputText = document.getElementById("inputText");
+      let imageInput = document.getElementById("imageInput");
+      let product = JSON.parse(localStorage.getItem("todolist")) || [];
+
+      showData();
+
+      addBtn.addEventListener("click", () => {
+        let file = imageInput.files[0];
+        let reader = new FileReader();
+
+        reader.onload = function () {
+          let obj = {
+            name: inputText.value,
+            image: reader.result,
+          };
+
+          product.push(obj);
+          localStorage.setItem("todolist", JSON.stringify(product));
+          showData();
+        };
+
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      });
+
+      function showData() {
+        container.innerHTML = "";
+
+        product.forEach((pro, index) => {
+          let card = document.createElement("div");
+          let paragraph = document.createElement("p");
+          let image = document.createElement("img");
+
+          paragraph.innerText = pro.name;
+          image.src = pro.image;
+          image.width = 100;
+
+          card.append(paragraph, image);
+          container.append(card);
+        });
+
+        inputText.value = "";
+        imageInput.value = "";
+      }
+    </script>
+  </body>
+</html>

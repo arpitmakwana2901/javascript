@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo Delete</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="input" />
+      <button id="addBtn">Add Product</button>
+      <div id="container"></div>
+    </div>
+  </body>
+
+  <script>
+    let input = document.getElementById("input");
+    let addButton = document.getElementById("addBtn");
+    let container = document.getElementById("container");
+    let array = JSON.parse(localStorage.getItem("todolist")) || [];
+
+    showData();
+
+    addButton.addEventListener("click", () => {
+      array.push(input.value);
+      console.log(input.value, "input value");
+      localStorage.setItem("todolist", JSON.stringify(array));
+      showData();
+    });
+
+    function showData() {
+      container.innerHTML = "";
+
+      array.forEach((element, index) => {
+        let card = document.createElement("div");
+        let paragraph = document.createElement("p");
+        paragraph.innerText = element;
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "Delete";
+
+        deleteBtn.addEventListener("click", () => {
+          // array = array.filter((ele, i) => i != index);
+          array.splice(index, 1);
+          localStorage.setItem("todolist", JSON.stringify(array));
+          showData();
+        });
+
+        card.append(paragraph, deleteBtn);
+        container.append(card);
+      });
+
+      input.value = "";
+    }
+  </script>
+</html>
